@@ -1,32 +1,52 @@
-DROP TABLE IF EXISTS students;
+-- Create a database named store
+CREATE DATABASE store;
 
--- Create the Students table
-CREATE TABLE Students (
-    StudentID INT PRIMARY KEY,
-    Name VARCHAR(100),
-    Age INT,
-    Gender VARCHAR(10),
-    GradeLevel VARCHAR(20),
-    School VARCHAR(100),
-    City VARCHAR(50),
-    AverageScore DECIMAL(5,2)
+-- Inside the store database, create a table named sales with the following columns:
+USE store;
+
+CREATE TABLE sales (
+    id INT PRIMARY KEY,
+    product_name VARCHAR(100),
+    quantity INT,
+    price_per_unit DECIMAL(10, 2)
 );
 
--- Insert sample records into the Students table
-INSERT INTO Students (StudentID, Name, Age, Gender, GradeLevel, School, City, AverageScore) VALUES
-(1, 'Alice Njeri', 16, 'Female', 'Form 2', 'Green Hill Academy', 'Nairobi', 78.5),
-(2, 'Brian Otieno', 17, 'Male', 'Form 3', 'Kisumu Boys High', 'Kisumu', 84.3),
-(3, 'Cynthia Wambui', 15, 'Female', 'Form 2', 'Ridgeways Girls', 'Nairobi', 91.0),
-(4, 'David Mwangi', 16, 'Male', 'Form 2', 'Alliance High', 'Kikuyu', 74.0),
-(5, 'Eva Akinyi', 18, 'Female', 'Form 4', 'Moi Girls Eldoret', 'Eldoret', 88.2),
-(6, 'Felix Kiptoo', 17, 'Male', 'Form 3', 'Kapsabet Boys', 'Kapsabet', 82.7),
-(7, 'Grace Muthoni', 14, 'Female', 'Form 1', 'Starehe Girls', 'Thika', 77.1),
-(8, 'Hassan Abdalla', 15, 'Male', 'Form 2', 'Mombasa Secondary', 'Mombasa', 69.8),
-(9, 'Irene Cherono', 16, 'Female', 'Form 3', 'Kabarak High', 'Nakuru', 86.4),
-(10, 'John Kamau', 17, 'Male', 'Form 4', 'Lenana School', 'Nairobi', 80.0),
-(11, 'Kevin Omondi', 15, 'Male', 'Form 2', 'Maseno School', 'Kisumu', 72.5);
+-- Inside the store database, create a table named sales with the following
+columns:
+USE store;
 
-
--- select all the data columns in the students table
-
-SELECT * FROM students;
+CREATE TABLE sales (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(100),
+    quantity INT,
+    price_per_unit DECIMAL(10, 2)
+);
+-- Insert at least five records into the sales table.
+-- Use realistic product names (e.g., “Laptop”, “Smartphone”, “Desk Chair”, etc.)
+-- and provide your own values for quantity and price_per_unit.
+-- �� Tip: Make sure your quantities and prices vary so that queries involving SUM
+-- and COUNT produce meaningful results.
+INSERT INTO sales (product_name, quantity, price_per_unit) VALUES
+('Laptop', 5, 899.99),
+('Smartphone', 10, 499.50),
+('Desk Chair', 7, 129.99),
+('Monitor', 3, 199.95),
+('Wireless Mouse', 15, 24.75);
+-- Write a SQL query to count the total number of sales records in the
+SELECT COUNT(*) AS total_sales FROM sales;
+-- Write a SQL query to count how many products have a quantity greater
+than 5.
+SELECT COUNT(*) AS products_with_quantity_gt_5
+FROM sales
+WHERE quantity > 5;
+-- Write a SQL query to find the total quantity of products sold.
+SELECT SUM(quantity) AS total_quantity_sold
+FROM sales;
+-- Write a SQL query to calculate the total sales amount across all products.
+SELECT SUM(quantity * price_per_unit) AS total_sales_amount
+FROM sales;
+-- Write a SQL query to calculate the total sales amount for products where the
+-- price_per_unit is greater than 1,000.
+SELECT SUM(quantity * price_per_unit) AS high_value_sales_total
+FROM sales
+WHERE price_per_unit > 1000;
